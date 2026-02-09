@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automation Dashboard</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Automation dashboard for managing leads, forms, customers and automation rules." />
+  <meta name="keywords" content="dashboard, automation, leads, forms, customers" />
+  <meta name="author" content="Automation Dashboard" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body dir="rtl">
+
+  <!-- Language Selector -->
+  <div class="language-selector">
+    <button class="language-btn" id="languageBtn">
+      <div class="language-flag" id="currentFlag" style="background:#2ecc71;"></div>
+      <span id="currentLanguage">العربية</span>
+      <i class="fas fa-chevron-down"></i>
+    </button>
+
+    <div class="language-dropdown" id="languageDropdown">
+      <div class="language-option" data-lang="ar">
+        <div class="language-flag" style="background:#2ecc71;"></div>
+        العربية
+      </div>
+      <div class="language-option" data-lang="en">
+        <div class="language-flag" style="background:#3498db;"></div>
+        English
+      </div>
+      <div class="language-option" data-lang="de">
+        <div class="language-flag" style="background:linear-gradient(black, red, yellow);"></div>
+        Deutsch
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="فتح القائمة" title="فتح القائمة">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="header-title" id="headerTitle">لوحة تحكم الأتمتة</div>
+
+    <div class="header-actions">
+      <button class="btn btn-secondary" id="darkModeBtn" title="Dark Mode">
+        <i class="fas fa-moon"></i>
+        <span id="darkModeText">الوضع الداكن</span>
+      </button>
+
+      <button class="btn btn-primary" id="addLeadBtn">
+        <i class="fas fa-plus"></i> <span id="addLeadText">إضافة عميل محتمل</span>
+      </button>
+
+      <div class="user-profile">
+        <div class="user-avatar" id="userAvatar">MA</div>
+        <div class="user-meta">
+          <div id="userName">محمد أحمد</div>
+          <small id="userRole">مدير النظام</small>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <h2><i class="fas fa-robot"></i> <span id="appName">أوتوميشن</span></h2>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li><a href="#dashboard" class="nav-link active" data-section="dashboard"><i class="fas fa-chart-line"></i><span id="navDashboard">لوحة التحكم</span></a></li>
+      <li><a href="#leads" class="nav-link" data-section="leads"><i class="fas fa-users"></i><span id="navLeads">العملاء المحتملين</span></a></li>
+      <li><a href="#forms" class="nav-link" data-section="forms"><i class="fas fa-file-alt"></i><span id="navForms">النماذج</span></a></li>
+      <li><a href="#customers" class="nav-link" data-section="customers"><i class="fas fa-user-tie"></i><span id="navCustomers">العملاء</span></a></li>
+      <li><a href="#automation" class="nav-link" data-section="automation"><i class="fas fa-cogs"></i><span id="navAutomation">الأتمتة</span></a></li>
+      <li><a href="#settings" class="nav-link" data-section="settings"><i class="fas fa-cog"></i><span id="navSettings">الإعدادات</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- Main -->
+  <main class="main-content">
+
+    <!-- Dashboard -->
+    <section id="dashboardSection" class="dashboard-section active">
+      <h2 class="section-title" id="dashboardTitle">لوحة التحكم الرئيسية</h2>
+
+      <div class="stats-cards">
+        <div class="card stat-card">
+          <div class="stat-icon" style="background:#4cc9f0;"><i class="fas fa-users"></i></div>
+          <div class="stat-info">
+            <h3 id="totalLeads">124</h3>
+            <p id="totalLeadsText">إجمالي العملاء المحتملين</p>
+          </div>
+        </div>
+
+        <div class="card stat-card">
+          <div class="stat-icon" style="background:#7209b7;"><i class="fas fa-file-signature"></i></div>
+          <div class="stat-info">
+            <h3 id="totalForms">18</h3>
+            <p id="totalFormsText">نموذج نشط</p>
+          </div>
+        </div>
+
+        <div class="card stat-card">
+          <div class="stat-icon" style="background:#4361ee;"><i class="fas fa-user-check"></i></div>
+          <div class="stat-info">
+            <h3 id="conversionRate">42%</h3>
+            <p id="conversionRateText">معدل التحويل</p>
+          </div>
+        </div>
+
+        <div class="card stat-card">
+          <div class="stat-icon" style="background:#f72585;"><i class="fas fa-clock"></i></div>
+          <div class="stat-info">
+            <h3 id="timeSaved">127</h3>
+            <p id="timeSavedText">ساعة وفرت</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="charts-container">
+        <div class="card chart-card">
+          <div class="chart-title" id="leadsChartTitle">تحليل العملاء المحتملين</div>
+          <div class="chart-container"><canvas id="leadsChart"></canvas></div>
+        </div>
+
+        <div class="card chart-card">
+          <div class="chart-title" id="conversionChartTitle">معدلات التحويل</div>
+          <div class="chart-container"><canvas id="conversionChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leads -->
+    <section id="leadsSection" class="dashboard-section">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;">
+        <h2 class="section-title" id="leadsTitle">إدارة العملاء المحتملين</h2>
+
+        <div class="tools-bar">
+          <label for="leadsSearchInput" class="sr-only">بحث العملاء المحتملين</label>
+          <input class="search-input" id="leadsSearchInput" type="text" />
+
+          <button class="btn btn-secondary" id="filterLeadsBtn">
+            <i class="fas fa-filter"></i><span id="filterText">تصفية</span>
+          </button>
+
+          <button class="btn btn-primary" id="exportLeadsBtn">
+            <i class="fas fa-file-export"></i><span id="exportText">تصدير</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="card table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th id="leadNameHeader">الاسم</th>
+              <th id="leadEmailHeader">البريد الإلكتروني</th>
+              <th id="leadSourceHeader">المصدر</th>
+              <th id="leadStatusHeader">الحالة</th>
+              <th id="leadDateHeader">التاريخ</th>
+              <th id="leadActionsHeader">الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="leadsTableBody"></tbody>
+        </table>
+
+        <div class="pagination">
+          <div class="page-info" id="paginationInfo">—</div>
+          <div class="page-buttons" id="paginationButtons"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Forms -->
+    <section id="formsSection" class="dashboard-section">
+      <h2 class="section-title" id="formsTitle">النماذج والأتمتة</h2>
+      <div class="grid" id="formsGrid"></div>
+
+      <div style="text-align:center;margin-top:18px;">
+        <button class="btn btn-primary" id="createFormBtn">
+          <i class="fas fa-plus"></i><span id="createFormText">إنشاء نموذج جديد</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Customers -->
+    <section id="customersSection" class="dashboard-section">
+      <h2 class="section-title" id="customersTitle">إدارة العملاء</h2>
+      <div class="grid" id="customersList"></div>
+    </section>
+
+    <!-- Automation -->
+    <section id="automationSection" class="dashboard-section">
+      <h2 class="section-title" id="automationTitle">قواعد الأتمتة</h2>
+
+      <div class="card box" style="margin-bottom:14px;">
+        <h3 id="automationRulesTitle" style="color:var(--primary);">القواعد النشطة</h3>
+
+        <div style="display:flex;gap:14px;margin-top:16px;">
+          <div style="width:16px;height:16px;border-radius:50%;background:#4cc9f0;margin-top:4px;"></div>
+          <div>
+            <div style="font-weight:900;" id="rule1Title">إشعار العملاء المحتملين الجدد</div>
+            <p id="rule1Desc">يتم إرسال إشعار فوري عند إرسال نموذج اتصال جديد</p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:14px;margin-top:16px;">
+          <div style="width:16px;height:16px;border-radius:50%;background:#7209b7;margin-top:4px;"></div>
+          <div>
+            <div style="font-weight:900;" id="rule2Title">متابعة تلقائية بعد 3 أيام</div>
+            <p id="rule2Desc">إرسال بريد إلكتروني للمتابعة للعملاء المحتملين غير المتفاعلين</p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:14px;margin-top:16px;">
+          <div style="width:16px;height:16px;border-radius:50%;background:#4361ee;margin-top:4px;"></div>
+          <div>
+            <div style="font-weight:900;" id="rule3Title">ترقية العميل المحتمل</div>
+            <p id="rule3Desc">ترقية العميل المحتمل إلى عميل عند إتمام عملية الشراء</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card box">
+        <h3 id="apiIntegrationTitle" style="color:var(--primary);">تكاملات API</h3>
+
+        <div style="display:flex;justify-content:space-between;gap:14px;align-items:center;margin-top:16px;padding-bottom:14px;border-bottom:1px solid var(--line);">
+          <div>
+            <div style="font-weight:900;">Google Sheets</div>
+            <p id="googleSheetsDesc">مزامنة تلقائية للعملاء المحتملين مع جداول جوجل</p>
+          </div>
+          <span class="badge b-converted" id="connectedText1">متصل</span>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;gap:14px;align-items:center;margin-top:16px;padding-bottom:14px;border-bottom:1px solid var(--line);">
+          <div>
+            <div style="font-weight:900;">Slack</div>
+            <p id="slackDesc">إشعارات فورية في قنوات Slack</p>
+          </div>
+          <span class="badge b-converted" id="connectedText2">متصل</span>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;gap:14px;align-items:center;margin-top:16px;">
+          <div>
+            <div style="font-weight:900;">Zapier</div>
+            <p id="zapierDesc">تكامل مع +3000 تطبيق عبر Zapier</p>
+          </div>
+          <span class="badge b-converted" id="connectedText3">متصل</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section id="settingsSection" class="dashboard-section">
+      <h2 class="section-title" id="settingsTitle">الإعدادات</h2>
+
+      <div class="card box settings-box">
+  <div class="form-group">
+    <label id="emailNotificationsLabel">إشعارات البريد الإلكتروني</label>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="emailNotifications" checked class="checkbox" />
+      <label for="emailNotifications" id="emailNotificationsText" class="checkbox-text">
+        تفعيل إشعارات البريد الإلكتروني للعملاء المحتملين الجدد
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label id="autoFollowupLabel">المتابعة التلقائية</label>
+
+    <div class="checkbox-row">
+      <input type="checkbox" id="autoFollowup" checked class="checkbox" />
+      <label for="autoFollowup" id="autoFollowupText" class="checkbox-text">
+        إرسال بريد متابعة تلقائي بعد 3 أيام
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label id="timezoneLabel" for="timezoneSelect">المنطقة الزمنية</label>
+    <select id="timezoneSelect"></select>
+  </div>
+
+  <div class="form-group">
+    <label id="dataRetentionLabel" for="dataRetentionSelect">احتفاظ البيانات</label>
+    <select id="dataRetentionSelect"></select>
+  </div>
+</div>
+
+
+        <button class="btn btn-primary" id="saveSettingsBtn">
+          <i class="fas fa-save"></i><span id="saveSettingsText">حفظ الإعدادات</span>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Add Lead Modal -->
+  <div class="modal" id="addLeadModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="addLeadModalTitle">إضافة عميل محتمل جديد</div>
+        <button class="close-btn" id="closeLeadModalBtn">&times;</button>
+      </div>
+
+      <div class="modal-body">
+  <div class="form-group">
+    <label id="leadNameLabel" for="leadNameInput">الاسم الكامل</label>
+    <input type="text" id="leadNameInput" />
+  </div>
+
+  <div class="form-group">
+    <label id="leadEmailLabel" for="leadEmailInput">البريد الإلكتروني</label>
+    <input type="email" id="leadEmailInput" />
+  </div>
+
+  <div class="form-group">
+    <label id="leadPhoneLabel" for="leadPhoneInput">رقم الهاتف</label>
+    <input type="tel" id="leadPhoneInput" />
+  </div>
+
+  <div class="form-group">
+    <label id="leadSourceLabel" for="leadSourceSelect">المصدر</label>
+    <select id="leadSourceSelect"></select>
+  </div>
+
+  <div class="form-group">
+    <label id="leadStatusLabel" for="leadStatusSelect">الحالة</label>
+    <select id="leadStatusSelect"></select>
+  </div>
+</div>
+
+
+        <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+          <button class="btn btn-primary" id="saveLeadBtn">
+            <i class="fas fa-save"></i><span id="saveLeadText">حفظ العميل المحتمل</span>
+          </button>
+          <button class="btn btn-secondary" id="cancelLeadBtn">
+            <span id="cancelLeadText">إلغاء</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+</body>
+</html>
